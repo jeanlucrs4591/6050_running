@@ -103,16 +103,17 @@ while 1:
             print 'start'
 
     if state:
-        datetext = '{0}:{1:02}:{2:02}.{3:06}'.format(d.hour, d.minute, d.second, d.microsecond)
+        datetext = '{0}:{1:02}:{2:02}.{3:03}'.format(d.hour, d.minute, d.second, d.microsecond / 1000)
         with open(filename, 'a') as f:
             writer = csv.writer(f, lineterminator='\n')
             writer.writerow([datetext, '%06.3f' % accel_x, '%06.3f' % accel_y, '%06.3f' % accel_z])
         f.close()
+        #print(count)
 
-    if count > 2000:
+    if count > 10000 and state:
         state = False
         print 'stop'
 
     count+=1
 
-    sleep(0.022)
+    sleep(0.002)
